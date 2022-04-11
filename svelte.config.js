@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 
 const sassPath = `./src/lib/styles/`;
@@ -14,7 +14,9 @@ const config = {
 	}),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter({
+			outDir: 'build'
+		})
 	}
 };
 
