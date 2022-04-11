@@ -21,6 +21,7 @@ $bg-colors: (
 $font-white-color: #ffffff;
 $font-primary-color: #000000;
 $font-danger-color: #bb2124;
+$font-success-color: #5cb85c;
 
 $font-colors: (
 	'font-black-color': #000000,
@@ -29,3 +30,5 @@ $font-colors: (
 );
 
 $font-family: 'DM Sans', sans-serif, 'Poppins';
+
+$breack-point-sm: 680px;

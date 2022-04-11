@@ -74,92 +74,97 @@
 
 <div class="sign_page">
 	<div class="container" bind:this={container} class:show_register={isRegister}>
-		<div class="form_container form_register">
-			<form>
-				<h1>Create an account</h1>
-				<Field
-					value={registerUserForm.name}
-					id="name"
-					error={nameValidationError}
-					placeholder="Name..."
-					on:input-validation={validateInput}
-					icon="user"
-				/>
-				<Field
-					value={registerUserForm.email}
-					id="register email"
-					error={registerEmailValidationError}
-					placeholder="Email..."
-					on:input-validation={validateInput}
-					icon="email"
-				/>
-				<Field
-					value={registerUserForm.password}
-					id="register password"
-					error={registerPasswordValidationError}
-					type="password"
-					placeholder="Password..."
-					on:input-validation={validateInput}
-					icon="lock"
-				/>
-				<Field
-					value={registerUserForm.confirmPassword}
-					id="register confirm password"
-					error={confirmationPasswordValidationError}
-					type="password"
-					placeholder="Confirm password..."
-					on:input-validation={validateInput}
-					icon="lock"
-				/>
-				<Button>Register</Button>
-			</form>
+		<div class="overlay_container">
+			<div class="overlay_login">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<Button
+					eventName="show_login"
+					outline={true}
+					rounded="15"
+					width="10"
+					fontSize="1.4"
+					on:show_login={showLogin}>Login</Button
+				>
+			</div>
+			<div class="overlay_register">
+				<h1>Hello!</h1>
+				<p>Enter your personal details and start your journey with us</p>
+				<Button
+					eventName="show_register"
+					outline={true}
+					rounded="15"
+					width="10"
+					fontSize="1.4"
+					on:show_register={showRegister}>Register</Button
+				>
+			</div>
 		</div>
-		<div class="form_container form_login">
-			<form>
-				<h1>Login to your account</h1>
-				<Field
-					value={loginUserForm.email}
-					id="login email"
-					error={loginEmailValidationError}
-					placeholder="Email..."
-					on:input-validation={validateInput}
-					icon="email"
-				/>
-				<Field
-					value={loginUserForm.password}
-					id="login password"
-					error={loginPasswordValidationError}
-					type="password"
-					placeholder="Password..."
-					on:input-validation={validateInput}
-					icon="lock"
-				/>
-				<Button rounded="15" width="10" fontSize="1.4">Login</Button>
-			</form>
-		</div>
-		<div class="overlay_panel overlay_login">
-			<h1>Welcome Back!</h1>
-			<p>To keep connected with us please login with your personal info</p>
-			<Button
-				eventName="show_login"
-				outline={true}
-				rounded="15"
-				width="10"
-				fontSize="1.4"
-				on:show_login={showLogin}>Login</Button
-			>
-		</div>
-		<div class="overlay_panel overlay_register">
-			<h1>Hello, Friend!</h1>
-			<p>Enter your personal details and start journey with us</p>
-			<Button
-				eventName="show_register"
-				outline={true}
-				rounded="15"
-				width="10"
-				fontSize="1.4"
-				on:show_register={showRegister}>Register</Button
-			>
+		<div class="form_container">
+			<div class="form_register">
+				<form>
+					<h1>Create an account</h1>
+					<Field
+						value={registerUserForm.name}
+						id="name"
+						error={nameValidationError}
+						placeholder="Name..."
+						on:input-validation={validateInput}
+						icon="user"
+					/>
+					<Field
+						value={registerUserForm.email}
+						id="register email"
+						error={registerEmailValidationError}
+						placeholder="Email..."
+						on:input-validation={validateInput}
+						icon="email"
+					/>
+					<Field
+						value={registerUserForm.password}
+						id="register password"
+						error={registerPasswordValidationError}
+						type="password"
+						placeholder="Password..."
+						on:input-validation={validateInput}
+						icon="lock"
+					/>
+					<Field
+						value={registerUserForm.confirmPassword}
+						id="confirm password"
+						error={confirmationPasswordValidationError}
+						type="password"
+						placeholder="Confirm password..."
+						on:input-validation={validateInput}
+						icon="lock"
+					/>
+					<Button rounded="15" width="10" fontSize="1.4">Register</Button>
+				</form>
+			</div>
+			<div class="form_login">
+				<form>
+					<h1>Login to your account</h1>
+					<Field
+						value={loginUserForm.email}
+						id="login email"
+						error={loginEmailValidationError}
+						placeholder="Email..."
+						on:input-validation={validateInput}
+						icon="email"
+					/>
+
+					<Field
+						value={loginUserForm.password}
+						id="login password"
+						error={loginPasswordValidationError}
+						type="password"
+						placeholder="Password..."
+						on:input-validation={validateInput}
+						icon="lock"
+					/>
+					<Button rounded="15" width="10" fontSize="1.4">Login</Button>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
@@ -170,17 +175,17 @@
 		height: 100vh;
 		width: 100vw;
 		.container {
-			width: 100%;
-			height: 100%;
-			overflow: hidden;
+			position: relative;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			flex-direction: row;
-			@media (max-width: 680px) {
-				&::before {
-					display: none;
-				}
+			height: 100%;
+			width: 100%;
+			overflow: hidden;
+			@media (max-width: $breack-point-sm) {
+				flex-direction: column;
+				height: 100%;
 			}
 			&::before {
 				content: '';
@@ -193,81 +198,161 @@
 				transform: translateX(-50%);
 				transition: 1.8s ease-in-out;
 				z-index: 50;
+				@media (max-width: $breack-point-sm) {
+					width: 1500px;
+					height: 1500px;
+					border-radius: 50%;
+					background: linear-gradient(40deg, $bg-1-color, $bg-2-color);
+					top: initial;
+					right: initial;
+					left: 30%;
+					bottom: 60%;
+					transform: translateX(-50%);
+					transition: 1.8s ease-in-out;
+					z-index: 50;
+				}
 			}
 			&.show_register {
 				&::before {
 					transform: translate(50%);
-				}
-				.overlay_panel {
-					transition: all 1.2s ease-in-out;
-					transform: translateX(100%);
-					&.overlay_login {
-						transition: all 1.2s ease-in-out;
-						opacity: 1;
-						z-index: 60;
+					@media (max-width: $breack-point-sm) {
+						transform: translateY(100%);
+						left: -90%;
+						bottom: 34%;
 					}
-					&.overlay_register {
-						transition: all 1.2s ease-in-out;
+				}
+				.overlay_container {
+					transition: all 1.8s ease-in-out;
+					transform: translateX(100%);
+					z-index: 60;
+					@media (max-width: $breack-point-sm) {
+						transition: all 1.8s ease-in-out;
+						transform: translateY(100%);
+					}
+					.overlay_login {
+						transition: all 1.8s ease-in-out;
+						opacity: 1;
+						z-index: 70;
+						@media (max-width: $breack-point-sm) {
+							margin-bottom: 0.8rem;
+							bottom: 0;
+							h1 {
+								font-size: 1.5rem;
+							}
+							p {
+								padding: 0 1rem;
+							}
+						}
+					}
+					.overlay_register {
+						transition: all 1.8s ease-in-out;
 						opacity: 0;
 						z-index: initial;
 					}
 				}
 				.form_container {
-					transition: all 1.2s ease-in-out;
+					transition: all 1.8s ease-in-out;
 					transform: translateX(-100%);
-					&.form_register {
-						transition: all 1.2s ease-in-out;
-						opacity: 1;
-						z-index: 10;
+					@media (max-width: $breack-point-sm) {
+						transition: all 1.8s ease-in-out;
+						transform: translateY(-100%);
 					}
-					&.form_login {
-						transition: all 1.2s ease-in-out;
+					.form_register {
+						transition: all 1.8s ease-in-out;
+						opacity: 1;
+						z-index: 70;
+						@media (max-width: $breack-point-sm) {
+							top: 0;
+							h1 {
+								font-size: 1.5rem;
+								margin-bottom: 0.5rem;
+							}
+						}
+					}
+					.form_login {
+						transition: all 1.8s ease-in-out;
 						opacity: 0;
 					}
 				}
 			}
-			.form_container {
-				position: absolute;
-				right: 0;
-				height: 100%;
-				width: 50%;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				flex-direction: row;
-				&.form_register {
-					transition: all 1.2s ease-in-out;
-					opacity: 0;
-				}
-				&.form_login {
-					transition: all 1.2s ease-in-out;
-				}
-				form {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					flex-direction: column;
-				}
-			}
-			.overlay_panel {
-				position: absolute;
-				left: 0;
-				height: 100%;
-				width: 50%;
+			.overlay_container {
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				flex-direction: column;
+				height: 100%;
+				width: 100%;
 				color: $font-white-color;
-				&.overlay_register {
+				transform: translateX(0);
+				transition: all 1.8s ease-in-out;
+				z-index: 60;
+				.overlay_register {
 					transition: all 1.2s ease-in-out;
-					background-color: inherit;
+					position: absolute;
+					opacity: 1;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
 					z-index: 60;
+					@media (max-width: $breack-point-sm) {
+						top: 0;
+						h1 {
+							font-size: 1.5rem;
+						}
+						p {
+							padding: 0 1rem;
+							text-align: justify;
+						}
+					}
 				}
-				&.overlay_login {
+				.overlay_login {
 					transition: all 1.2s ease-in-out;
-					background-color: inherit;
+					position: absolute;
 					opacity: 0;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+					z-index: initial;
+				}
+			}
+			.form_container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				height: 100%;
+				width: 100%;
+				transition: all 1.8s ease-in-out;
+				.form_login {
+					transition: all 1.2s ease-in-out;
+					position: absolute;
+					opacity: 1;
+					@media (max-width: $breack-point-sm) {
+						bottom: 15%;
+						h1 {
+							font-size: 1.5rem;
+							margin-bottom: 0rem;
+						}
+					}
+					form {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						flex-direction: column;
+					}
+				}
+				.form_register {
+					transition: all 1.2s ease-in-out;
+					position: absolute;
+					opacity: 0;
+					form {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						flex-direction: column;
+					}
 				}
 			}
 		}

@@ -9,5 +9,5 @@ export enum FieldName {
 	LOGIN_PASSWORD = 'login password',
 	REGISTER_EMAIL = 'register email',
 	REGISTER_PASSWORD = 'register password',
-	CONFIRMATIONPASSWORD = 'confirmationPassword'
+	CONFIRMATIONPASSWORD = 'confirm password'
 }
