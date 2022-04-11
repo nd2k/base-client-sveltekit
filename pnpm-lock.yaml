@@ -16,15 +16,13 @@ specifiers:
   svelte: ^3.44.0
   svelte-check: ^2.2.6
   svelte-preprocess: ^4.10.1
-  svelte2tsx: ^0.5.8
   tslib: ^2.3.1
   typescript: ~4.6.2
   url: ^0.11.0
 
 dependencies:
-  lucide-svelte: 0.19.0_svelte2tsx@0.5.8+svelte@3.46.6
+  lucide-svelte: 0.19.0_svelte@3.46.6
   path: 0.12.7
-  svelte2tsx: 0.5.8_svelte@3.46.6+typescript@4.6.3
   url: 0.11.0
 
 devDependencies:
@@ -534,10 +532,6 @@ packages:
     dependencies:
       ms: 2.1.2
     dev: true
-
-  /dedent-js/1.0.1:
-    resolution: {integrity: sha1-vuX7fJ5yfYXf+iRZDRDsGrElUwU=}
-    dev: false
 
   /deep-is/0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
@@ -1219,12 +1213,6 @@ packages:
     resolution: {integrity: sha1-WjUNoLERO4N+z//VgSy+WNbq4ZM=}
     dev: true
 
-  /lower-case/2.0.2:
-    resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
-    dependencies:
-      tslib: 2.3.1
-    dev: false
-
   /lru-cache/6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
@@ -1232,14 +1220,13 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /lucide-svelte/0.19.0_svelte2tsx@0.5.8+svelte@3.46.6:
+  /lucide-svelte/0.19.0_svelte@3.46.6:
     resolution: {integrity: sha512-vYvZVYT55sOd1QMRBudVqp6ekflGYUqvYoQlGi/bY8+fTeKRVzkyqjcDU6bieUxEMgDx46VDSPiutFiLq8IWCw==}
     peerDependencies:
       svelte: ^3.45.0
       svelte2tsx: ^0.4.12
     dependencies:
       svelte: 3.46.6
-      svelte2tsx: 0.5.8_svelte@3.46.6+typescript@4.6.3
     dev: false
 
   /magic-string/0.25.9:
@@ -1314,13 +1301,6 @@ packages:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
 
-  /no-case/3.0.4:
-    resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
-    dependencies:
-      lower-case: 2.0.2
-      tslib: 2.3.1
-    dev: false
-
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
@@ -1350,13 +1330,6 @@ packages:
     dependencies:
       callsites: 3.1.0
     dev: true
-
-  /pascal-case/3.1.2:
-    resolution: {integrity: sha512-uWlGT3YSnK9x3BQJaOdcZwrnV6hPpd8jFH1/ucpiLRPh/2zCVJKS19E4GvYHvaCcACn3foXZ0cLB9Wrx1KGe5g==}
-    dependencies:
-      no-case: 3.0.4
-      tslib: 2.3.1
-    dev: false
 
   /path-is-absolute/1.0.1:
     resolution: {integrity: sha1-F0uSaHNVNP+8es5r9TpanhtcX18=}
@@ -1751,18 +1724,6 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /svelte2tsx/0.5.8_svelte@3.46.6+typescript@4.6.3:
-    resolution: {integrity: sha512-z5Mfpmy/jkpFIiePAocgWxGRJg+Ka0zlxyvFlpP2X1BoQuXjFC6pnIR9CGebOTmi+W1JnSUAdxrCCj/sEMXZ8Q==}
-    peerDependencies:
-      svelte: ^3.24
-      typescript: ^4.1.2
-    dependencies:
-      dedent-js: 1.0.1
-      pascal-case: 3.1.2
-      svelte: 3.46.6
-      typescript: 4.6.3
-    dev: false
-
   /table/6.8.0:
     resolution: {integrity: sha512-s/fitrbVeEyHKFa7mFdkuQMWlH1Wgw/yEXMt5xACT4ZpzWFluehAxRtUUQKPuWhaLAWhFcVx6w3oC8VKaUfPGA==}
     engines: {node: '>=10.0.0'}
@@ -1798,6 +1759,7 @@ packages:
 
   /tslib/2.3.1:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
+    dev: true
 
   /tsutils/3.21.0_typescript@4.6.3:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
