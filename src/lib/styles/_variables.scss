@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Poppins:wght@100&display=swap');
+
+$bg-1-color: #f2ad9f;
+$bg-2-color: #f26968;
+$bg-3-color: #dfe2d2;
+$bg-4-color: #6cbf84;
+$bg-5-color: #323339;
+$bg-black-color: #000000;
+$bg-white-color: #ffffff;
+
+$bg-colors: (
+	'bg-1-color': #f2ad9f,
+	'bg-2-color': #f26968,
+	'bg-3-color': #dfe2d2,
+	'bg-4-color': #6cbf84,
+	'bg-5-color': #323339,
+	'bg-black-color': #000000,
+	'bg-white-color': #ffffff
+);
+
+$font-white-color: #ffffff;
+$font-primary-color: #000000;
+$font-danger-color: #bb2124;
+
+$font-colors: (
+	'font-black-color': #000000,
+	'font-white-color': #ffffff,
+	'font-danger-color': #bb2124
+);
+
+$font-family: 'DM Sans', sans-serif, 'Poppins';
