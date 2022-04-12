@@ -238,6 +238,7 @@
 			@media (max-width: $breack-point-sm) {
 				flex-direction: column;
 				height: 100%;
+				overflow-y: auto;
 			}
 			&::before {
 				content: '';
