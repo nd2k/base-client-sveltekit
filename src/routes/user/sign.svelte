@@ -114,9 +114,14 @@
 			disabledRegister = false;
 		}
 	};
+
+	const adaptheight = () => {
+		console.log('height has changed');
+		alert('height has changed');
+	};
 </script>
 
-<div class="sign_page">
+<div class="sign_page" on:resize={adaptheight}>
 	<div class="container" class:show_register={isRegister}>
 		<div class="overlay_container">
 			<div class="overlay_login">
@@ -238,7 +243,6 @@
 			@media (max-width: $breack-point-sm) {
 				flex-direction: column;
 				height: 100%;
-				overflow-y: auto;
 			}
 			&::before {
 				content: '';
