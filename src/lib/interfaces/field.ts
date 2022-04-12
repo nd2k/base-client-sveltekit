@@ -3,11 +3,26 @@ export type ValidationError = {
 	errorMessage: string;
 };
 
-export enum FieldName {
+export enum FieldNameRegister {
 	NAME = 'name',
-	LOGIN_EMAIL = 'login email',
-	LOGIN_PASSWORD = 'login password',
-	REGISTER_EMAIL = 'register email',
-	REGISTER_PASSWORD = 'register password',
-	CONFIRMATIONPASSWORD = 'confirm password'
+	EMAIL = 'email',
+	PASSWORD = 'password',
+	PASSWORD_CONFIRMATION = 'passwordConfirmation'
 }
+
+export enum FieldNameLogin {
+	EMAIL = 'email',
+	PASSWORD = 'password'
+}
+
+export type RegisterUserForm = {
+	name: string;
+	email: string;
+	password: string;
+	passwordConfirmation: string;
+};
+
+export type LoginUserForm = {
+	email: string;
+	password: string;
+};

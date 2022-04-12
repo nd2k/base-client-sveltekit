@@ -9,6 +9,8 @@
 	export let fontSize: string = '1';
 	export let eventName: string = 'default-event';
 	export let outline: boolean = false;
+	export let disabled: boolean = false;
+	export let type: string = 'button';
 
 	const computedClass = (): string => {
 		if (outline) {
@@ -29,7 +31,7 @@
 	};
 </script>
 
-<button class={computedClass()} style={computedStyle} on:click={btnClick}>
+<button {type} {disabled} class={computedClass()} style={computedStyle} on:click={btnClick}>
 	<slot />
 </button>
 
@@ -83,6 +85,12 @@
 			&.outline-#{$class} {
 				background-color: $font-color;
 			}
+		}
+		&:disabled {
+			cursor: not-allowed;
+			pointer-events: none;
+			color: $bg-6-color;
+			background-color: lighten($bg-1-color, 15%);
 		}
 	}
 </style>

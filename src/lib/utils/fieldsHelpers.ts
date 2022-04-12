@@ -1,3 +1,5 @@
+import type { LoginUserForm, RegisterUserForm } from '$lib/interfaces/field';
+
 export const checkLength = (value: string, id: string, min: number, max: number) => {
 	if (value.length > max) {
 		return {
@@ -48,5 +50,17 @@ export const comparePasswords = (password: string, confirmationPassword: string)
 			isValid: false,
 			errorMessage: `Passwords don't match`
 		};
+	}
+};
+
+export const assignValue = (
+	updatedValue: string,
+	field: string,
+	object: LoginUserForm | RegisterUserForm
+) => {
+	for (const [key] of Object.entries(object)) {
+		if (key === field) {
+			object[key] = updatedValue;
+		}
 	}
 };

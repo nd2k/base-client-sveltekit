@@ -1,13 +1,30 @@
 <script lang="ts">
 	import Field from '$lib/components/field.svelte';
-	import { FieldName, type ValidationError } from '$lib/interfaces/field';
-	import { checkLength, comparePasswords, validateEmail } from '$lib/utils/validateField';
+	import {
+		FieldNameRegister,
+		FieldNameLogin,
+		type LoginUserForm,
+		type RegisterUserForm,
+		type ValidationError
+	} from '$lib/interfaces/field';
+	import {
+		assignValue,
+		checkLength,
+		comparePasswords,
+		validateEmail
+	} from '$lib/utils/fieldsHelpers';
 	import Button from '$lib/components/button.svelte';
+	import { loginUser, registerUser } from '$lib/services/authenticationService';
 
-	let registerUserForm = { name: '', email: '', password: '', confirmPassword: '' };
-	let loginUserForm = { email: '', password: '' };
-	let disabled: boolean = true;
-	let container: HTMLElement;
+	let registerUserForm: RegisterUserForm = {
+		name: '',
+		email: '',
+		password: '',
+		passwordConfirmation: ''
+	};
+	let loginUserForm: LoginUserForm = { email: '', password: '' };
+	let disabledLogin: boolean = true;
+	let disabledRegister: boolean = true;
 	let isRegister: boolean = false;
 	let nameValidationError: ValidationError = {
 		isValid: null,
@@ -42,38 +59,65 @@
 		isRegister = true;
 	};
 
-	const submitRegisterUser = () => {
-		console.log(registerUserForm);
+	const submitLoginUser = async () => {
+		const result = await loginUser(loginUserForm);
+		console.log(result);
+		return result;
 	};
 
-	const validateInput = (event: any): void => {
-		const { value, id } = event.detail;
-		if (id === FieldName.NAME) {
-			nameValidationError = checkLength(value, id, 4, 6);
-		}
-		if (id === FieldName.LOGIN_EMAIL) {
+	const submitRegisterUser = async () => {
+		showLogin();
+		const result = await registerUser(registerUserForm);
+		console.log(result);
+		return result;
+	};
+
+	const validateLoginInput = (event: any): void => {
+		const { value, name } = event.detail;
+		if (name === FieldNameLogin.EMAIL) {
 			loginEmailValidationError = validateEmail(value);
+			assignValue(value, name, loginUserForm);
 		}
-		if (id === FieldName.REGISTER_EMAIL) {
+		if (name === FieldNameLogin.PASSWORD) {
+			loginPasswordValidationError = checkLength(value, name, 4, 8);
+			assignValue(value, name, loginUserForm);
+		}
+		if (loginEmailValidationError.isValid && loginPasswordValidationError.isValid) {
+			disabledLogin = false;
+		}
+	};
+
+	const validateRegisterInput = (event: any): void => {
+		const { value, name } = event.detail;
+		if (name === FieldNameRegister.NAME) {
+			nameValidationError = checkLength(value, name, 4, 6);
+			assignValue(value, name, registerUserForm);
+		}
+		if (name === FieldNameRegister.EMAIL) {
 			registerEmailValidationError = validateEmail(value);
+			assignValue(value, name, registerUserForm);
 		}
-		if (id === FieldName.LOGIN_PASSWORD) {
-			loginPasswordValidationError = checkLength(value, id, 4, 8);
+		if (name === FieldNameRegister.PASSWORD) {
+			registerPasswordValidationError = checkLength(value, name, 4, 8);
+			assignValue(value, name, registerUserForm);
 		}
-		if (id === FieldName.REGISTER_PASSWORD) {
-			registerPasswordValidationError = checkLength(value, id, 4, 8);
+		if (name === FieldNameRegister.PASSWORD_CONFIRMATION) {
+			confirmationPasswordValidationError = comparePasswords(registerUserForm.password, value);
+			assignValue(value, name, registerUserForm);
 		}
-		if (id === FieldName.CONFIRMATIONPASSWORD) {
-			confirmationPasswordValidationError = comparePasswords(
-				registerUserForm.password,
-				registerUserForm.confirmPassword
-			);
+		if (
+			registerEmailValidationError.isValid &&
+			registerPasswordValidationError.isValid &&
+			confirmationPasswordValidationError.isValid &&
+			nameValidationError.isValid
+		) {
+			disabledRegister = false;
 		}
 	};
 </script>
 
 <div class="sign_page">
-	<div class="container" bind:this={container} class:show_register={isRegister}>
+	<div class="container" class:show_register={isRegister}>
 		<div class="overlay_container">
 			<div class="overlay_login">
 				<h1>Welcome Back!</h1>
@@ -102,67 +146,75 @@
 		</div>
 		<div class="form_container">
 			<div class="form_register">
-				<form>
+				<form on:submit|preventDefault={submitRegisterUser}>
 					<h1>Create an account</h1>
 					<Field
 						value={registerUserForm.name}
-						id="name"
+						name="name"
 						error={nameValidationError}
 						placeholder="Name..."
-						on:input-validation={validateInput}
+						on:input-validation={validateRegisterInput}
 						icon="user"
 					/>
 					<Field
 						value={registerUserForm.email}
-						id="register email"
+						name="email"
 						error={registerEmailValidationError}
 						placeholder="Email..."
-						on:input-validation={validateInput}
+						on:input-validation={validateRegisterInput}
 						icon="email"
 					/>
 					<Field
 						value={registerUserForm.password}
-						id="register password"
+						name="password"
 						error={registerPasswordValidationError}
 						type="password"
 						placeholder="Password..."
-						on:input-validation={validateInput}
+						on:input-validation={validateRegisterInput}
 						icon="lock"
 					/>
 					<Field
-						value={registerUserForm.confirmPassword}
-						id="confirm password"
+						value={registerUserForm.passwordConfirmation}
+						name="passwordConfirmation"
 						error={confirmationPasswordValidationError}
 						type="password"
 						placeholder="Confirm password..."
-						on:input-validation={validateInput}
+						on:input-validation={validateRegisterInput}
 						icon="lock"
 					/>
-					<Button rounded="15" width="10" fontSize="1.4">Register</Button>
+					<Button
+						eventName="submit_register"
+						disabled={disabledRegister}
+						rounded="15"
+						width="10"
+						fontSize="1.4"
+						type="submit">Register</Button
+					>
 				</form>
 			</div>
 			<div class="form_login">
-				<form>
+				<form on:submit|preventDefault={submitLoginUser}>
 					<h1>Login to your account</h1>
 					<Field
 						value={loginUserForm.email}
-						id="login email"
+						name="email"
 						error={loginEmailValidationError}
 						placeholder="Email..."
-						on:input-validation={validateInput}
+						on:input-validation={validateLoginInput}
 						icon="email"
 					/>
-
 					<Field
 						value={loginUserForm.password}
-						id="login password"
+						name="password"
 						error={loginPasswordValidationError}
 						type="password"
 						placeholder="Password..."
-						on:input-validation={validateInput}
+						on:input-validation={validateLoginInput}
 						icon="lock"
 					/>
-					<Button rounded="15" width="10" fontSize="1.4">Login</Button>
+					<Button disabled={disabledLogin} rounded="15" width="10" fontSize="1.4" type="submit"
+						>Login</Button
+					>
 				</form>
 			</div>
 		</div>

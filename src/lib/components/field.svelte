@@ -5,7 +5,7 @@
 	import { User, Unlock, CheckCircle, Mail, X } from 'lucide-svelte';
 
 	export let value: string;
-	export let id: string;
+	export let name: string;
 	export let placeholder: string = 'Default';
 	export let icon: string = 'user';
 	export let validation: boolean = true;
@@ -20,21 +20,23 @@
 	export let rounded: string = 'rounded-1';
 	export let type: string = 'text';
 	export let margin: string = 'margin-3';
+	export let border: string = 'border-0';
 
 	let computedStyle: string = `
     width:${width}%;`;
 
 	const computedClass = (): string => {
+		const allClasses = `field ${bgColor} ${color} ${fontSize} ${rounded} ${margin} ${border}`;
 		if (validation && icon !== null) {
-			return `field ${bgColor} ${color} ${fontSize} ${rounded} ${margin} hasValidation hasIcon`;
+			return allClasses + 'hasValidation hasIcon';
 		}
 		if (validation) {
-			return `field ${bgColor} ${color} ${fontSize} ${rounded} ${margin} hasValidation`;
+			return allClasses + 'hasValidation';
 		}
 		if (icon !== null) {
-			return `field ${bgColor} ${color} ${fontSize} ${rounded} ${margin} hasIcon`;
+			return allClasses + 'hasIcon';
 		} else {
-			return `field ${bgColor} ${color} ${fontSize} ${rounded} ${margin}`;
+			return allClasses;
 		}
 	};
 
@@ -59,10 +61,10 @@
 		<input
 			use:typeAction
 			bind:value
-			{id}
+			{name}
 			{placeholder}
 			autocomplete=""
-			on:input={() => dispatch('input-validation', { value, id })}
+			on:input={() => dispatch('input-validation', { value, name })}
 		/>
 		{#if validation}
 			{#if error.isValid}
@@ -149,28 +151,36 @@
 						border-radius: 0;
 					}
 				}
-				&.font-size-#{$i} {
+				&.border-#{$i} {
 					.icon {
-						padding: $i * 0.2rem;
-						height: $i * 0.5rem;
-						width: $i * 0.5rem;
 						border-bottom: $i * 0.7px solid $bg-black-color;
 						border-top: $i * 0.7px solid $bg-black-color;
 						border-left: $i * 0.7px solid $bg-black-color;
 					}
 					input {
+						border: $i * 0.7px solid $bg-black-color;
+					}
+					.validation_icon {
+						border-bottom: $i * 0.7px solid $bg-black-color;
+						border-top: $i * 0.7px solid $bg-black-color;
+						border-right: $i * 0.7px solid $bg-black-color;
+					}
+				}
+				&.font-size-#{$i} {
+					.icon {
+						padding: $i * 0.2rem;
+						height: $i * 0.5rem;
+						width: $i * 0.5rem;
+					}
+					input {
 						padding: $i * 0.2rem;
 						font-size: $i * 0.4rem;
 						height: $i * 0.5rem;
-						border: $i * 0.7px solid $bg-black-color;
 					}
 					.validation_icon {
 						padding: $i * 0.2rem;
 						height: $i * 0.5rem;
 						width: $i * 1rem;
-						border-bottom: $i * 0.7px solid $bg-black-color;
-						border-top: $i * 0.7px solid $bg-black-color;
-						border-right: $i * 0.7px solid $bg-black-color;
 					}
 				}
 			}
@@ -183,6 +193,7 @@
 				outline: none;
 				width: 100%;
 				padding-left: 0.5rem;
+				border: none;
 			}
 			.validation_icon {
 				display: flex;
