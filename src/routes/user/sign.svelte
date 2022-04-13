@@ -114,14 +114,9 @@
 			disabledRegister = false;
 		}
 	};
-
-	const adaptheight = () => {
-		console.log('height has changed');
-		alert('height has changed');
-	};
 </script>
 
-<div class="sign_page" on:resize={adaptheight}>
+<div class="sign_page">
 	<div class="container" class:show_register={isRegister}>
 		<div class="overlay_container">
 			<div class="overlay_login">
@@ -231,6 +226,7 @@
 		font-family: $font-family;
 		height: 100vh;
 		width: 100vw;
+		position: relative;
 		.container {
 			position: relative;
 			display: flex;
